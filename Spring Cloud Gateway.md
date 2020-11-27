@@ -20,7 +20,7 @@
 
 ## [2.词汇表](https://docs.spring.io/spring-cloud-gateway/docs/2.2.5.RELEASE/reference/html/#glossary)
 
-- **路线**：网关的基本构建块。它由ID，目标URI，谓词集合和过滤器集合定义。如果聚合谓词为true，则匹配路由。
+- **路由**：网关的基本构建块。它由ID，目标URI，谓词集合和过滤器集合定义。如果聚合谓词为true，则匹配路由。
 - **谓词**：这是[Java 8函数谓词](https://docs.oracle.com/javase/8/docs/api/java/util/function/Predicate.html)。输入类型是[Spring Framework`ServerWebExchange`](https://docs.spring.io/spring/docs/5.0.x/javadoc-api/org/springframework/web/server/ServerWebExchange.html)。这使您可以匹配HTTP请求中的所有内容，例如标头或参数。
 - **Filter**：这些是使用特定工厂构造的[Spring Framework`GatewayFilter`](https://docs.spring.io/spring/docs/5.0.x/javadoc-api/org/springframework/web/server/GatewayFilter.html)实例。在这里，您可以在发送下游请求之前或之后修改请求和响应。
 
@@ -28,7 +28,7 @@
 
 下图从总体上概述了Spring Cloud Gateway的工作方式：
 
-![Spring Cloud网关图](https://docs.spring.io/spring-cloud-gateway/docs/2.2.5.RELEASE/reference/html/images/spring_cloud_gateway_diagram.png)
+![Spring Cloud Gateway Diagram](https://docs.spring.io/spring-cloud-gateway/docs/2.2.5.RELEASE/reference/html/images/spring_cloud_gateway_diagram.png)
 
 客户端向Spring Cloud Gateway发出请求。如果网关处理程序映射确定请求与路由匹配，则将其发送到网关Web处理程序。该处理程序通过特定于请求的过滤器链运行请求。筛选器由虚线分隔的原因是，筛选器可以在发送代理请求之前和之后运行逻辑。所有“前置”过滤器逻辑均被执行。然后发出代理请求。发出代理请求后，将运行“后”过滤器逻辑。
 
