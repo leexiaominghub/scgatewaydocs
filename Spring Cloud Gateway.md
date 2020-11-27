@@ -6,7 +6,7 @@
 
 ## [1.如何包括Spring Cloud Gateway](https://docs.spring.io/spring-cloud-gateway/docs/2.2.5.RELEASE/reference/html/#gateway-starter)
 
-要将Spring Cloud Gateway包含在您的项目中，请使用具有组ID`org.springframework.cloud`和工件ID的启动器`spring-cloud-starter-gateway`。有关使用当前Spring Cloud Release Train设置构建系统的详细信息，请参见[Spring Cloud Project页面](https://projects.spring.io/spring-cloud/)。
+要将Spring Cloud Gateway包含在您的项目中，请使用具有org.springframework.cloud group ID`和artifact ID的启动器`spring-cloud-starter-gateway`。有关使用当前Spring Cloud Release Train设置构建系统的详细信息，请参见[Spring Cloud Project页面](https://projects.spring.io/spring-cloud/)。
 
 如果包括启动器，但不希望启用网关，请设置`spring.cloud.gateway.enabled=false`。
 
