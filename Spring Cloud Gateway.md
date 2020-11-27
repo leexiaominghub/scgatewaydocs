@@ -30,13 +30,13 @@
 
 ![Spring Cloud Gateway Diagram](https://docs.spring.io/spring-cloud-gateway/docs/2.2.5.RELEASE/reference/html/images/spring_cloud_gateway_diagram.png)
 
-客户端向Spring Cloud Gateway发出请求。如果网关处理程序映射确定请求与路由匹配，则将其发送到网关Web处理程序。该处理程序通过特定于请求的过滤器链运行请求。筛选器由虚线分隔的原因是，筛选器可以在发送代理请求之前和之后运行逻辑。所有“前置”过滤器逻辑均被执行。然后发出代理请求。发出代理请求后，将运行“后”过滤器逻辑。
+客户端向Spring Cloud Gateway发出请求。如果Gateway Handler Mapping确定请求与路由匹配，则将其发送到网关Web处理程序。该处理程序通过特定于请求的过滤器链运行请求。过滤器由虚线分隔的原因是，过滤器可以在发送代理请求之前和之后运行逻辑。所有“前置”过滤器逻辑均被执行。然后发出代理请求。发出代理请求后，将运行“后”过滤器逻辑。
 
 |      | 在没有端口的路由中定义的URI，HTTP和HTTPS URI的默认端口值分别为80和443。 |
 | ---- | ------------------------------------------------------------ |
 |      |                                                              |
 
-## [4.配置路由谓词工厂和网关过滤工厂](https://docs.spring.io/spring-cloud-gateway/docs/2.2.5.RELEASE/reference/html/#configuring-route-predicate-factories-and-gateway-filter-factories)
+## [4.配置Route Predicate Factories和Gateway Filter Factories](https://docs.spring.io/spring-cloud-gateway/docs/2.2.5.RELEASE/reference/html/#configuring-route-predicate-factories-and-gateway-filter-factories)
 
 有两种配置谓词和过滤器的方法：快捷方式和完全扩展的参数。下面的大多数示例都使用快捷方式。
 
@@ -61,7 +61,7 @@ spring:
 
 上一个示例`Cookie`使用两个参数（cookie名称`mycookie`和match的值）定义了Route Predicate Factory `mycookievalue`。
 
-### [4.2。完全展开的论点](https://docs.spring.io/spring-cloud-gateway/docs/2.2.5.RELEASE/reference/html/#fully-expanded-arguments)
+### [4.2。完全展开的参数](https://docs.spring.io/spring-cloud-gateway/docs/2.2.5.RELEASE/reference/html/#fully-expanded-arguments)
 
 完全展开的参数看起来更像带有名称/值对的标准Yaml配置。通常，将有一个`name`钥匙和一个`args`钥匙。的`args`关键是地图密钥值对的配置谓词或过滤器。
 
@@ -83,13 +83,13 @@ spring:
 
 这是`Cookie`上面显示的谓词的快捷方式配置的完整配置。
 
-## [5.路由谓词工厂](https://docs.spring.io/spring-cloud-gateway/docs/2.2.5.RELEASE/reference/html/#gateway-request-predicates-factories)
+## [5.Route Predicate Factories](https://docs.spring.io/spring-cloud-gateway/docs/2.2.5.RELEASE/reference/html/#gateway-request-predicates-factories)
 
-Spring Cloud Gateway将路由匹配作为Spring WebFlux`HandlerMapping`基础架构的一部分。Spring Cloud Gateway包括许多内置的路由谓词工厂。所有这些谓词都与HTTP请求的不同属性匹配。您可以将多个路由谓词工厂与逻辑`and`语句结合使用。
+Spring Cloud Gateway将路由匹配作为Spring WebFlux`HandlerMapping`基础架构的一部分。Spring Cloud Gateway包括许多内置的Route Predicate Factories。所有这些谓词都与HTTP请求的不同属性匹配。您可以将多个Route Predicate Factories与逻辑`and`语句结合使用。
 
-### [5.1。后路线谓词工厂](https://docs.spring.io/spring-cloud-gateway/docs/2.2.5.RELEASE/reference/html/#the-after-route-predicate-factory)
+### [5.1。后路由谓词工厂](https://docs.spring.io/spring-cloud-gateway/docs/2.2.5.RELEASE/reference/html/#the-after-route-predicate-factory)
 
-所述`After`路线谓词工厂有一个参数，一个`datetime`（其是Java `ZonedDateTime`）。该谓词匹配在指定日期时间之后发生的请求。下面的示例配置路由后谓词：
+所述`After`路由谓词工厂有一个参数，一个`datetime`（其是Java `ZonedDateTime`）。该谓词匹配在指定日期时间之后发生的请求。下面的示例配置路由后谓词：
 
 例子1. application.yml
 
@@ -104,11 +104,11 @@ spring:
         - After=2017-01-20T17:42:47.789-07:00[America/Denver]
 ```
 
-这条路线符合2017年1月20日17:42山区时间（丹佛）之后的任何请求。
+这条路由匹配2017年1月20日17:42山区时间（丹佛）之后的任何请求。
 
-### [5.2。之前路线谓词工厂](https://docs.spring.io/spring-cloud-gateway/docs/2.2.5.RELEASE/reference/html/#the-before-route-predicate-factory)
+### [5.2。之前路由谓词工厂](https://docs.spring.io/spring-cloud-gateway/docs/2.2.5.RELEASE/reference/html/#the-before-route-predicate-factory)
 
-所述`Before`路线谓词工厂有一个参数，一个`datetime`（其是Java `ZonedDateTime`）。该谓词匹配在指定之前发生的请求`datetime`。下面的示例配置路由前谓词：
+所述`Before`路由谓词工厂有一个参数，一个`datetime`（其是Java `ZonedDateTime`）。该谓词匹配在指定之前发生的请求`datetime`。下面的示例配置路由前谓词：
 
 例子2. application.yml
 
@@ -123,11 +123,11 @@ spring:
         - Before=2017-01-20T17:42:47.789-07:00[America/Denver]
 ```
 
-这条路线符合2017年1月20日17:42山区时间（丹佛）之前的任何要求。
+这条路由符合2017年1月20日17:42山区时间（丹佛）之前的任何要求。
 
 ### [5.3。路由谓词间工厂](https://docs.spring.io/spring-cloud-gateway/docs/2.2.5.RELEASE/reference/html/#the-between-route-predicate-factory)
 
-该`Between`路线谓词工厂有两个参数，`datetime1`并且`datetime2` 这是Java`ZonedDateTime`对象。该谓词匹配之后`datetime1`和之前发生的请求`datetime2`。该`datetime2`参数必须是后`datetime1`。以下示例配置了路由之间的谓词：
+该`Between`路由谓词工厂有两个参数，`datetime1`并且`datetime2` 这是Java`ZonedDateTime`对象。该谓词匹配之后`datetime1`和之前发生的请求`datetime2`。该`datetime2`参数必须是后`datetime1`。以下示例配置了路由之间的谓词：
 
 例子3. application.yml
 
@@ -142,11 +142,11 @@ spring:
         - Between=2017-01-20T17:42:47.789-07:00[America/Denver], 2017-01-21T17:42:47.789-07:00[America/Denver]
 ```
 
-此路线与2017年1月20日山区时间（丹佛）之后和2017年1月21日17:42山区时间（丹佛）之后的任何请求相匹配。这对于维护时段可能很有用。
+此路由与2017年1月20日山区时间（丹佛）之后和2017年1月21日17:42山区时间（丹佛）之后的任何请求相匹配。这对于维护时段可能很有用。
 
-### [5.4。Cookie路线谓词工厂](https://docs.spring.io/spring-cloud-gateway/docs/2.2.5.RELEASE/reference/html/#the-cookie-route-predicate-factory)
+### [5.4。Cookie路由谓词工厂](https://docs.spring.io/spring-cloud-gateway/docs/2.2.5.RELEASE/reference/html/#the-cookie-route-predicate-factory)
 
-所述`Cookie`路线谓词工厂采用两个参数，该cookie`name`和`regexp`（其是Java正则表达式）。该谓词匹配具有给定名称且其值与正则表达式匹配的cookie。以下示例配置cookie路由谓词工厂：
+所述`Cookie`路由谓词工厂采用两个参数，该cookie`name`和`regexp`（其是Java正则表达式）。该谓词匹配具有给定名称且其值与正则表达式匹配的cookie。以下示例配置cookieRoute Predicate Factories：
 
 例子4. application.yml
 
@@ -163,9 +163,9 @@ spring:
 
 此路由匹配具有名称为`chocolate`与`ch.p`正则表达式匹配的cookie的请求。
 
-### [5.5。标头路由谓词工厂](https://docs.spring.io/spring-cloud-gateway/docs/2.2.5.RELEASE/reference/html/#the-header-route-predicate-factory)
+### [5.5。标头Route Predicate Factories](https://docs.spring.io/spring-cloud-gateway/docs/2.2.5.RELEASE/reference/html/#the-header-route-predicate-factory)
 
-所述`Header`路线谓词工厂采用两个参数，报头`name`和一个`regexp`（其是Java正则表达式）。该谓词与具有给定名称的标头匹配，该标头的值与正则表达式匹配。以下示例配置标头路由谓词：
+所述`Header`路由谓词工厂采用两个参数，报头`name`和一个`regexp`（其是Java正则表达式）。该谓词与具有给定名称的标头匹配，该标头的值与正则表达式匹配。以下示例配置标头路由谓词：
 
 例子5. application.yml
 
@@ -182,9 +182,9 @@ spring:
 
 如果请求具有名为`X-Request-Id`其值与`\d+`正则表达式匹配的标头（即，其值为一个或多个数字），则此路由匹配。
 
-### [5.6。主机路由谓词工厂](https://docs.spring.io/spring-cloud-gateway/docs/2.2.5.RELEASE/reference/html/#the-host-route-predicate-factory)
+### [5.6。主机Route Predicate Factories](https://docs.spring.io/spring-cloud-gateway/docs/2.2.5.RELEASE/reference/html/#the-host-route-predicate-factory)
 
-该`Host`路线谓词工厂需要一个参数：主机名的列表`patterns`。该模式是带有`.`分隔符的Ant样式的模式。谓词与`Host`匹配模式的标头匹配。以下示例配置主机路由谓词：
+该`Host`路由谓词工厂需要一个参数：主机名的列表`patterns`。该模式是带有`.`分隔符的Ant样式的模式。谓词与`Host`匹配模式的标头匹配。以下示例配置主机路由谓词：
 
 例子6. application.yml
 
@@ -205,9 +205,9 @@ spring:
 
 该谓词提取URI模板变量（例如`sub`，在前面的示例中定义的）作为名称和值的映射，并`ServerWebExchange.getAttributes()`使用中定义的键将其放在中`ServerWebExchangeUtils.URI_TEMPLATE_VARIABLES_ATTRIBUTE`。这些值可供[工厂](https://docs.spring.io/spring-cloud-gateway/docs/2.2.5.RELEASE/reference/html/#gateway-route-filters)使用[`GatewayFilter`](https://docs.spring.io/spring-cloud-gateway/docs/2.2.5.RELEASE/reference/html/#gateway-route-filters)
 
-### [5.7。方法路线谓词工厂](https://docs.spring.io/spring-cloud-gateway/docs/2.2.5.RELEASE/reference/html/#the-method-route-predicate-factory)
+### [5.7。方法路由谓词工厂](https://docs.spring.io/spring-cloud-gateway/docs/2.2.5.RELEASE/reference/html/#the-method-route-predicate-factory)
 
-所述`Method`路线谓词厂需要`methods`的参数，它是一个或多个参数：HTTP方法来匹配。以下示例配置方法route谓词：
+所述`Method`路由谓词厂需要`methods`的参数，它是一个或多个参数：HTTP方法来匹配。以下示例配置方法route谓词：
 
 例子7. application.yml
 
@@ -224,9 +224,9 @@ spring:
 
 如果请求方法是a`GET`或a，则此路由匹配`POST`。
 
-### [5.8。路径路线谓词工厂](https://docs.spring.io/spring-cloud-gateway/docs/2.2.5.RELEASE/reference/html/#the-path-route-predicate-factory)
+### [5.8。路径路由谓词工厂](https://docs.spring.io/spring-cloud-gateway/docs/2.2.5.RELEASE/reference/html/#the-path-route-predicate-factory)
 
-该`Path`路线谓词厂有两个参数：春天的列表`PathMatcher` `patterns`和一个可选的标志叫`matchOptionalTrailingSeparator`。以下示例配置路径路由谓词：
+该`Path`路由谓词厂有两个参数：春天的列表`PathMatcher` `patterns`和一个可选的标志叫`matchOptionalTrailingSeparator`。以下示例配置路径路由谓词：
 
 例子8. application.yml
 
@@ -241,7 +241,7 @@ spring:
         - Path=/red/{segment},/blue/{segment}
 ```
 
-：这条路线，如果请求路径是，例如匹配`/red/1`或`/red/blue`或`/blue/green`。
+：这条路由，如果请求路径是，例如匹配`/red/1`或`/red/blue`或`/blue/green`。
 
 该谓词提取URI模板变量（例如`segment`，在前面的示例中定义的）作为名称和值的映射，并`ServerWebExchange.getAttributes()`使用中定义的键将其放在中`ServerWebExchangeUtils.URI_TEMPLATE_VARIABLES_ATTRIBUTE`。这些值可供[工厂](https://docs.spring.io/spring-cloud-gateway/docs/2.2.5.RELEASE/reference/html/#gateway-route-filters)使用[`GatewayFilter`](https://docs.spring.io/spring-cloud-gateway/docs/2.2.5.RELEASE/reference/html/#gateway-route-filters)
 
@@ -253,9 +253,9 @@ Map<String, String> uriVariables = ServerWebExchangeUtils.getPathPredicateVariab
 String segment = uriVariables.get("segment");
 ```
 
-### [5.9。查询路由谓词工厂](https://docs.spring.io/spring-cloud-gateway/docs/2.2.5.RELEASE/reference/html/#the-query-route-predicate-factory)
+### [5.9。查询Route Predicate Factories](https://docs.spring.io/spring-cloud-gateway/docs/2.2.5.RELEASE/reference/html/#the-query-route-predicate-factory)
 
-所述`Query`路线谓词工厂采用两个参数：所要求的`param`和可选的`regexp`（其是Java正则表达式）。以下示例配置查询路由谓词：
+所述`Query`路由谓词工厂采用两个参数：所要求的`param`和可选的`regexp`（其是Java正则表达式）。以下示例配置查询路由谓词：
 
 例子9. application.yml
 
@@ -285,11 +285,11 @@ spring:
         - Query=red, gree.
 ```
 
-如果请求包含一个前述路线匹配`red`，其值相匹配的查询参数`gree.`的regexp，所以`green`和`greet`将匹配。
+如果请求包含一个前述路由匹配`red`，其值相匹配的查询参数`gree.`的regexp，所以`green`和`greet`将匹配。
 
-### [5.10。RemoteAddr路由谓词工厂](https://docs.spring.io/spring-cloud-gateway/docs/2.2.5.RELEASE/reference/html/#the-remoteaddr-route-predicate-factory)
+### [5.10。RemoteAddrRoute Predicate Factories](https://docs.spring.io/spring-cloud-gateway/docs/2.2.5.RELEASE/reference/html/#the-remoteaddr-route-predicate-factory)
 
-所述`RemoteAddr`路线谓词工厂需要的列表（分钟尺寸1） `sources`，其是CIDR的表示法（IPv4或IPv6）的字符串，如`192.168.0.1/16`（其中`192.168.0.1`是一个IP地址和`16`一个子网掩码）。以下示例配置一个RemoteAddr路由谓词：
+所述`RemoteAddr`路由谓词工厂需要的列表（分钟尺寸1） `sources`，其是CIDR的表示法（IPv4或IPv6）的字符串，如`192.168.0.1/16`（其中`192.168.0.1`是一个IP地址和`16`一个子网掩码）。以下示例配置一个RemoteAddr路由谓词：
 
 例子10. application.yml
 
@@ -306,9 +306,9 @@ spring:
 
 如果请求的远程地址为，则此路由匹配`192.168.1.10`。
 
-### [5.11。重量路线谓词工厂](https://docs.spring.io/spring-cloud-gateway/docs/2.2.5.RELEASE/reference/html/#the-weight-route-predicate-factory)
+### [5.11。重量路由谓词工厂](https://docs.spring.io/spring-cloud-gateway/docs/2.2.5.RELEASE/reference/html/#the-weight-route-predicate-factory)
 
-该`Weight`路线谓词工厂有两个参数：`group`和`weight`（一个int）。权重是按组计算的。以下示例配置权重路由谓词：
+该`Weight`路由谓词工厂有两个参数：`group`和`weight`（一个int）。权重是按组计算的。以下示例配置权重路由谓词：
 
 例子11. application.yml
 
@@ -327,11 +327,11 @@ spring:
         - Weight=group1, 2
 ```
 
-这条路线会将约80％的流量转发至[weighthigh.org，](https://weighthigh.org/)并将约20％的流量[转发](https://weighlow.org/)至[weightlow.org。](https://weighlow.org/)
+这条路由会将约80％的流量转发至[weighthigh.org，](https://weighthigh.org/)并将约20％的流量[转发](https://weighlow.org/)至[weightlow.org。](https://weighlow.org/)
 
 #### [5.11.1。修改远程地址的解析方式](https://docs.spring.io/spring-cloud-gateway/docs/2.2.5.RELEASE/reference/html/#modifying-the-way-remote-addresses-are-resolved)
 
-默认情况下，RemoteAddr路由谓词工厂使用传入请求中的远程地址。如果Spring Cloud Gateway位于代理层后面，则可能与实际的客户端IP地址不匹配。
+默认情况下，RemoteAddrRoute Predicate Factories使用传入请求中的远程地址。如果Spring Cloud Gateway位于代理层后面，则可能与实际的客户端IP地址不匹配。
 
 您可以通过设置custom来定制解析远程地址的方式`RemoteAddressResolver`。春季云网关附带了一个基于的关闭一个非默认的远程地址解析器[X -转发，对于头](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Forwarded-For)，`XForwardedRemoteAddressResolver`。
 
@@ -626,7 +626,7 @@ spring:
 - [Resilience4J文档](https://cloud.spring.io/spring-cloud-circuitbreaker/reference/html/spring-cloud-circuitbreaker.html)
 - [Hystrix文档](https://cloud.spring.io/spring-cloud-netflix/reference/html/)
 
-Spring Cloud CircuitBreaker过滤器也可以接受可选`fallbackUri`参数。当前，仅`forward:`支持计划的URI。如果调用后备，则请求将转发到与URI匹配的控制器。以下示例配置了这种后备：
+Spring Cloud CircuitBreaker过滤器也可以接受可选`fallbackUri`参数。当前，仅支持`forward:`模式的URI。如果调用后备，则请求将转发到与URI匹配的控制器。以下示例配置了这种后备：
 
 例子25. application.yml
 
@@ -696,7 +696,7 @@ spring:
 
 #### [6.6.1。根据状态码使断路器跳闸](https://docs.spring.io/spring-cloud-gateway/docs/2.2.5.RELEASE/reference/html/#circuit-breaker-status-codes)
 
-在某些情况下，您可能希望根据断路器包装的路线返回的状态代码来使断路器跳闸。断路器配置对象获取状态代码列表，如果返回该状态代码，将导致断路器跳闸。设置要使断路器跳闸的状态码时，可以使用带状态码值的整数或`HttpStatus`枚举的字符串表示形式。
+在某些情况下，您可能希望根据断路器包装的路由返回的状态代码来使断路器跳闸。断路器配置对象获取状态代码列表，如果返回该状态代码，将导致断路器跳闸。设置要使断路器跳闸的状态码时，可以使用带状态码值的整数或`HttpStatus`枚举的字符串表示形式。
 
 例子28. application.yml
 
@@ -1457,7 +1457,7 @@ spring:
 
 ## [7.全局过滤器](https://docs.spring.io/spring-cloud-gateway/docs/2.2.5.RELEASE/reference/html/#global-filters)
 
-该`GlobalFilter`接口具有相同的签名`GatewayFilter`。这些是特殊过滤器，有条件地应用于所有路由。
+该`GlobalFilter`接口与`GatewayFilter`具有相同的签名。这些是特殊过滤器，有条件地应用于所有路由。
 
 |      | 此接口及其用法可能会在将来的里程碑版本中更改。 |
 | ---- | ---------------------------------------------- |
@@ -1554,11 +1554,11 @@ spring:
 
 ### [7.5。网络路由过滤器](https://docs.spring.io/spring-cloud-gateway/docs/2.2.5.RELEASE/reference/html/#the-netty-routing-filter)
 
-如果位于`ServerWebExchangeUtils.GATEWAY_REQUEST_URL_ATTR`交换属性中的URL具有`http`或`https`方案，则将运行Netty路由筛选器。它使用Netty`HttpClient`发出下游代理请求。响应将放入`ServerWebExchangeUtils.CLIENT_RESPONSE_ATTR`exchange属性中，以供以后的过滤器使用。（也有一个实验`WebClientHttpRoutingFilter`，执行相同的功能，但不需要Netty。）
+如果位于`ServerWebExchangeUtils.GATEWAY_REQUEST_URL_ATTR`交换属性中的URL具有`http`或`https`方案，则将运行Netty路由过滤器。它使用Netty`HttpClient`发出下游代理请求。响应将放入`ServerWebExchangeUtils.CLIENT_RESPONSE_ATTR`exchange属性中，以供以后的过滤器使用。（也有一个实验`WebClientHttpRoutingFilter`，执行相同的功能，但不需要Netty。）
 
 ### [7.6。净写响应过滤器](https://docs.spring.io/spring-cloud-gateway/docs/2.2.5.RELEASE/reference/html/#the-netty-write-response-filter)
 
-的`NettyWriteResponseFilter`，如果有一个运行的Netty`HttpClientResponse`在`ServerWebExchangeUtils.CLIENT_RESPONSE_ATTR`交换属性。它在所有其他筛选器完成后运行，并将代理响应写回到网关客户端响应。（也有一个实验`WebClientWriteResponseFilter`，执行相同的功能，但不需要Netty。）
+的`NettyWriteResponseFilter`，如果有一个运行的Netty`HttpClientResponse`在`ServerWebExchangeUtils.CLIENT_RESPONSE_ATTR`交换属性。它在所有其他过滤器完成后运行，并将代理响应写回到网关客户端响应。（也有一个实验`WebClientWriteResponseFilter`，执行相同的功能，但不需要Netty。）
 
 ### [7.7。该`RouteToRequestUrl`过滤器](https://docs.spring.io/spring-cloud-gateway/docs/2.2.5.RELEASE/reference/html/#the-routetorequesturl-filter)
 
@@ -1568,7 +1568,7 @@ spring:
 
 ### [7.8。Websocket路由过滤器](https://docs.spring.io/spring-cloud-gateway/docs/2.2.5.RELEASE/reference/html/#the-websocket-routing-filter)
 
-如果位于`ServerWebExchangeUtils.GATEWAY_REQUEST_URL_ATTR`exchange属性中的URL具有`ws`或`wss`方案，则将运行websocket路由筛选器。它使用Spring WebSocket基础结构向下游转发websocket请求。
+如果位于`ServerWebExchangeUtils.GATEWAY_REQUEST_URL_ATTR`exchange属性中的URL具有`ws`或`wss`方案，则将运行websocket路由过滤器。它使用Spring WebSocket基础结构向下游转发websocket请求。
 
 你可以用前缀的URI负载平衡的WebSockets `lb`，如`lb:ws://serviceid`。
 
@@ -1616,7 +1616,7 @@ spring:
 
 ### [7.10。将交换标记为已路由](https://docs.spring.io/spring-cloud-gateway/docs/2.2.5.RELEASE/reference/html/#marking-an-exchange-as-routed)
 
-网关对a进行路由之后`ServerWebExchange`，通过添加`gatewayAlreadyRouted` 交换属性将交换标记为“已路由” 。将请求标记为已路由后，其他路由筛选器将不会再次路由请求，实质上会跳过该筛选器。您可以使用多种便利的方法将交换标记为已路由或检查交换是否已路由。
+网关对a进行路由之后`ServerWebExchange`，通过添加`gatewayAlreadyRouted` 交换属性将交换标记为“已路由” 。将请求标记为已路由后，其他路由过滤器将不会再次路由请求，实质上会跳过该过滤器。您可以使用多种便利的方法将交换标记为已路由或检查交换是否已路由。
 
 - `ServerWebExchangeUtils.isAlreadyRouted`接收一个`ServerWebExchange`对象并检查它是否已被“路由”。
 - `ServerWebExchangeUtils.setAlreadyRouted`接收一个`ServerWebExchange`对象并将其标记为“已路由”。
@@ -1908,7 +1908,7 @@ public RouteLocator customRouteLocator(RouteLocatorBuilder builder, ThrottleGate
 
 默认的过滤器是带有正则表达式`/serviceId/(?<remaining>.*)`和替换的重写路径过滤器`/${remaining}`。这会在将请求发送到下游之前从路径中剥离服务ID。
 
-如果要自定义`DiscoveryClient`路线使用的谓词或过滤器，请设置`spring.cloud.gateway.discovery.locator.predicates[x]`和`spring.cloud.gateway.discovery.locator.filters[y]`。这样做时，如果要保留该功能，则需要确保包括前面显示的默认谓词和过滤器。下面的示例显示其外观：
+如果要自定义`DiscoveryClient`路由使用的谓词或过滤器，请设置`spring.cloud.gateway.discovery.locator.predicates[x]`和`spring.cloud.gateway.discovery.locator.filters[y]`。这样做时，如果要保留该功能，则需要确保包括前面显示的默认谓词和过滤器。下面的示例显示其外观：
 
 例子71. application.properties
 
@@ -2039,11 +2039,11 @@ spring.cloud.gateway.actuator.verbose.enabled=false
 }
 ```
 
-该响应包含已到位的全局筛选器的详细信息。对于每个全局过滤器，都有一个过滤器对象的字符串表示形式（例如`org.springframework.cloud.gateway.filter.LoadBalancerClientFilter@77856cc5`）和过滤器链中的相应[顺序](https://docs.spring.io/spring-cloud-gateway/docs/2.2.5.RELEASE/reference/html/#gateway-combined-global-filter-and-gatewayfilter-ordering)。}
+该响应包含已到位的全局过滤器的详细信息。对于每个全局过滤器，都有一个过滤器对象的字符串表示形式（例如`org.springframework.cloud.gateway.filter.LoadBalancerClientFilter@77856cc5`）和过滤器链中的相应[顺序](https://docs.spring.io/spring-cloud-gateway/docs/2.2.5.RELEASE/reference/html/#gateway-combined-global-filter-and-gatewayfilter-ordering)。}
 
-#### [15.2.2。路线过滤器](https://docs.spring.io/spring-cloud-gateway/docs/2.2.5.RELEASE/reference/html/#gateway-route-filters)
+#### [15.2.2。路由过滤器](https://docs.spring.io/spring-cloud-gateway/docs/2.2.5.RELEASE/reference/html/#gateway-route-filters)
 
-要检索应用于路线的[`GatewayFilter`工厂](https://docs.spring.io/spring-cloud-gateway/docs/2.2.5.RELEASE/reference/html/#gatewayfilter-factories)，`GET`请向发出请求`/actuator/gateway/routefilters`。产生的响应类似于以下内容：
+要检索应用于路由的[`GatewayFilter`工厂](https://docs.spring.io/spring-cloud-gateway/docs/2.2.5.RELEASE/reference/html/#gatewayfilter-factories)，`GET`请向发出请求`/actuator/gateway/routefilters`。产生的响应类似于以下内容：
 
 ```
 { 
@@ -2053,7 +2053,7 @@ spring.cloud.gateway.actuator.verbose.enabled=false
 }
 ```
 
-该响应包含`GatewayFilter`应用于任何特定路线的工厂的详细信息。对于每个工厂，都有一个对应对象的字符串表示形式（例如`[SecureHeadersGatewayFilterFactory@fceab5d configClass = Object]`）。请注意，该`null`值是由于端点控制器的实现不完整所致，因为该值试图设置对象在过滤器链中的顺序，而该顺序不适用于`GatewayFilter`工厂对象。
+该响应包含`GatewayFilter`应用于任何特定路由的工厂的详细信息。对于每个工厂，都有一个对应对象的字符串表示形式（例如`[SecureHeadersGatewayFilterFactory@fceab5d configClass = Object]`）。请注意，该`null`值是由于端点控制器的实现不完整所致，因为该值试图设置对象在过滤器链中的顺序，而该顺序不适用于`GatewayFilter`工厂对象。
 
 ### [15.3。刷新路由缓存](https://docs.spring.io/spring-cloud-gateway/docs/2.2.5.RELEASE/reference/html/#refreshing-the-route-cache)
 
@@ -2084,7 +2084,7 @@ spring.cloud.gateway.actuator.verbose.enabled=false
 }]
 ```
 
-该响应包含网关中定义的所有路由的详细信息。下表描述了响应的每个元素的结构（每个元素都是一条路线）：
+该响应包含网关中定义的所有路由的详细信息。下表描述了响应的每个元素的结构（每个元素都是一条路由）：
 
 | 路径                     | 类型 | 描述                                                         |
 | :----------------------- | :--- | :----------------------------------------------------------- |
@@ -2093,9 +2093,9 @@ spring.cloud.gateway.actuator.verbose.enabled=false
 | `route_object.filters`   | 数组 | 该[`GatewayFilter`工厂](https://docs.spring.io/spring-cloud-gateway/docs/2.2.5.RELEASE/reference/html/#gatewayfilter-factories)使用的路由。 |
 | `order`                  | 数   | 路线顺序。                                                   |
 
-### [15.5。检索有关特定路线的信息](https://docs.spring.io/spring-cloud-gateway/docs/2.2.5.RELEASE/reference/html/#gateway-retrieving-information-about-a-particular-route)
+### [15.5。检索有关特定路由的信息](https://docs.spring.io/spring-cloud-gateway/docs/2.2.5.RELEASE/reference/html/#gateway-retrieving-information-about-a-particular-route)
 
-要检索有关一条路线的信息，`GET`请向发出请求`/actuator/gateway/routes/{id}`（例如`/actuator/gateway/routes/first_route`）。产生的响应类似于以下内容：
+要检索有关一条路由的信息，`GET`请向发出请求`/actuator/gateway/routes/{id}`（例如`/actuator/gateway/routes/first_route`）。产生的响应类似于以下内容：
 
 ```
 { 
@@ -2120,11 +2120,11 @@ spring.cloud.gateway.actuator.verbose.enabled=false
 | `uri`        | 串   | 路由的目标URI。                                        |
 | `order`      | 数   | 路线顺序。                                             |
 
-### [15.6。创建和删除特定路线](https://docs.spring.io/spring-cloud-gateway/docs/2.2.5.RELEASE/reference/html/#creating-and-deleting-a-particular-route)
+### [15.6。创建和删除特定路由](https://docs.spring.io/spring-cloud-gateway/docs/2.2.5.RELEASE/reference/html/#creating-and-deleting-a-particular-route)
 
 要创建路由，`POST`请`/gateway/routes/{id_route_to_create}`使用JSON主体发出请求，以指定路由的字段（请参阅[检索有关特定路由的信息](https://docs.spring.io/spring-cloud-gateway/docs/2.2.5.RELEASE/reference/html/#gateway-retrieving-information-about-a-particular-route)）。
 
-要删除路线，`DELETE`请向发出请求`/gateway/routes/{id_route_to_delete}`。
+要删除路由，`DELETE`请向发出请求`/gateway/routes/{id_route_to_delete}`。
 
 ### [15.7。回顾：所有端点的列表](https://docs.spring.io/spring-cloud-gateway/docs/2.2.5.RELEASE/reference/html/#recap-the-list-of-all-endpoints)
 
@@ -2163,7 +2163,7 @@ spring.cloud.gateway.actuator.verbose.enabled=false
 
 这些是编写网关的某些自定义组件的基本指南。
 
-### [17.1。编写自定义路线谓词工厂](https://docs.spring.io/spring-cloud-gateway/docs/2.2.5.RELEASE/reference/html/#writing-custom-route-predicate-factories)
+### [17.1。编写自定义路由谓词工厂](https://docs.spring.io/spring-cloud-gateway/docs/2.2.5.RELEASE/reference/html/#writing-custom-route-predicate-factories)
 
 为了编写Route Predicate，您需要实现`RoutePredicateFactory`。有一个`AbstractRoutePredicateFactory`可以扩展的抽象类。
 
