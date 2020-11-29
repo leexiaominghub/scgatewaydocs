@@ -1,188 +1,10 @@
-# 网上反应堆
+# Web on Reactive Stack
 
 版本5.3.1
 
-[返回索引](https://docs.spring.io/spring-framework/docs/current/reference/html/index.html)
 
-1. \1. Spring WebFlux
-   1. 
-      1. 
-      2. 
-      3. 
-      4. 
-      5. 
-      6. 
-      7. 
-   2. 
-      1. 
-      2. 
-         1. 
-         2. 
-         3. 
-         4. 
-      3. 
-         1. 
-      4. 
-      5. 
-         1. 
-         2. 
-         3. 
-         4. 
-         5. 
-         6. 
-      6. 
-         1. 
-         2. 
-         3. 
-         4. 
-   3. 
-      1. 
-      2. 
-      3. 
-      4. 
-      5. 
-      6. 
-         1. 
-         2. 
-         3. 
-   4. 
-      1. 
-      2. 
-         1. 
-         2. 
-         3. 
-         4. 
-         5. 
-         6. 
-         7. 
-         8. 
-      3. 
-         1. 
-         2. 
-         3. 
-         4. 
-         5. 
-         6. 
-         7. 
-         8. 
-         9. 
-         10. 
-         11. 
-         12. 
-         13. 
-         14. 
-         15. 
-         16. 
-         17. 
-      4. 
-      5. 
-      6. 
-         1. 
-      7. 
-   5. 
-      1. 
-      2. 
-         1. 
-         2. 
-         3. 
-         4. 
-      3. 
-         1. 
-         2. 
-         3. 
-      4. 
-      5. 
-   6. 
-      1. 
-      2. 
-      3. 
-   7. 
-      1. 
-      2. 
-      3. 
-      4. 
-      5. 
-   8. 
-   9. 
-      1. 
-      2. 
-         1. 
-         2. 
-         3. 
-      3. 
-         1. 
-         2. 
-      4. 
-   10. 
-       1. 
-       2. 
-       3. 
-   11. 
-       1. 
-       2. 
-       3. 
-       4. 
-       5. 
-       6. 
-       7. 
-       8. 
-       9. 
-       10. 
-       11. 
-   12. 
-2. \2. WebClient
-   1. 
-      1. 
-      2. 
-         1. 
-         2. 
-      3. 
-      4. 
-   2. 
-   3. 
-   4. 
-      1. 
-      2. 
-   5. 
-   6. 
-   7. 
-   8. 
-   9. 
-3. \3. WebSockets
-   1. 
-      1. 
-      2. 
-   2. 
-      1. 
-      2. 
-      3. 
-      4. 
-      5. 
-      6. 
-      7. 
-4. [4.测试](https://docs.spring.io/spring-framework/docs/current/reference/html/web-reactive.html#webflux-test)
-5. \5. RSocket
-   1. 
-      1. 
-      2. 
-      3. 
-   2. 
-      1. 
-         1. 
-         2. 
-         3. 
-         4. 
-      2. 
-      3. 
-   3. 
-      1. 
-      2. 
-      3. 
-      4. 
-   4. 
-6. [6.反应性图书馆](https://docs.spring.io/spring-framework/docs/current/reference/html/web-reactive.html#webflux-reactive-libraries)
 
-文档的此部分涵盖对基于[Reactive Streams](https://www.reactive-streams.org/) API构建的[反应堆](https://www.reactive-streams.org/)Web应用程序的支持，该应用程序可在非阻塞服务器（例如Netty，Undertow和Servlet 3.1+容器）上运行。各个章节涵盖了[Spring WebFlux](https://docs.spring.io/spring-framework/docs/current/reference/html/webflux.html#webflux)框架，反应式[`WebClient`](https://docs.spring.io/spring-framework/docs/current/reference/html/web-reactive.html#webflux-client)，[测试](https://docs.spring.io/spring-framework/docs/current/reference/html/web-reactive.html#webflux-test)支持和[反应式库](https://docs.spring.io/spring-framework/docs/current/reference/html/web-reactive.html#webflux-reactive-libraries)。对于Servlet堆栈Web应用程序，请参阅[Servlet Stack上的Web](https://docs.spring.io/spring-framework/docs/current/reference/html/web.html#spring-web)。
+文档的此部分涵盖对基于[Reactive Streams](https://www.reactive-streams.org/) API构建的[reactive-stack](https://www.reactive-streams.org/)Web应用程序的支持，该应用程序可在非阻塞服务器（例如Netty，Undertow和Servlet 3.1+容器）上运行。涵盖了[Spring WebFlux](https://docs.spring.io/spring-framework/docs/current/reference/html/webflux.html#webflux)框架，反应式[`WebClient`](https://docs.spring.io/spring-framework/docs/current/reference/html/web-reactive.html#webflux-client)，[测试](https://docs.spring.io/spring-framework/docs/current/reference/html/web-reactive.html#webflux-test)支持和[反应式库](https://docs.spring.io/spring-framework/docs/current/reference/html/web-reactive.html#webflux-reactive-libraries)的独立章节。对于Servlet栈Web应用程序，请参阅[Servlet Stack上的Web](https://docs.spring.io/spring-framework/docs/current/reference/html/web.html#spring-web)。
 
 ## 1. Spring WebFlux
 
@@ -267,7 +89,7 @@ Tomcat和Jetty可以与Spring MVC和WebFlux一起使用。但是请记住，它�
 
 表演具有许多特征和意义。反应和非阻塞通常不会使应用程序运行得更快。在某些情况下，它们可以（例如，如果使用 `WebClient`并行运行远程调用）。总体而言，以非阻塞方式进行处理需要更多的工作，这可能会稍微增加所需的处理时间。
 
-反应性和非阻塞性的主要预期好处是能够以较少的固定数量的线程和较少的内存进行扩展。这使应用程序在负载下更具弹性，因为它们以更可预测的方式扩展。但是，为了观察这些好处，您需要有一些延迟（包括缓慢的和不可预测的网络I / O的混合）。这就是反应堆开始显示其优势的地方，差异可能很大。
+反应性和非阻塞性的主要预期好处是能够以较少的固定数量的线程和较少的内存进行扩展。这使应用程序在负载下更具弹性，因为它们以更可预测的方式扩展。但是，为了观察这些好处，您需要有一些延迟（包括缓慢的和不可预测的网络I / O的混合）。这就是reactive-stack开始显示其优势的地方，差异可能很大。
 
 #### 1.1.7。并发模型
 
@@ -302,7 +124,7 @@ Spring MVC和Spring WebFlux都支持带注释的控制器，但是并发模型�
 
 Spring框架不提供启动和停止[服务器的](https://docs.spring.io/spring-framework/docs/current/reference/html/web-reactive.html#webflux-server-choice)支持 。要为服务器配置线程模型，您需要使用服务器特定的配置API，或者，如果您使用的是Spring Boot，请检查每个服务器的Spring Boot配置选项。您可以 [配置](https://docs.spring.io/spring-framework/docs/current/reference/html/web-reactive.html#webflux-client-builder)的`WebClient`直接。对于所有其他库，请参阅其各自的文档。
 
-### 1.2。反应堆芯
+### 1.2。reactive-stack芯
 
 该`spring-web`模块包含以下对响应式Web应用程序的基础支持：
 
@@ -318,26 +140,26 @@ Spring框架不提供启动和停止[服务器的](https://docs.spring.io/spring
 
 下表描述了受支持的服务器API：
 
-| 服务器名称      | 使用的服务器API                                              | 反应式流支持                                           |
-| :-------------- | :----------------------------------------------------------- | :----------------------------------------------------- |
-| 净额            | Netty API                                                    | [反应堆净值](https://github.com/reactor/reactor-netty) |
-| 底拖            | Undertow API                                                 | spring-web：向响应流桥过渡                             |
-| 雄猫            | Servlet 3.1非阻塞I / O；读取和写入ByteBuffers与byte []的Tomcat API | spring-web：Servlet 3.1非阻塞I / O到响应流桥           |
-| 码头            | Servlet 3.1非阻塞I / O；Jetty API编写ByteBuffers与byte []    | spring-web：Servlet 3.1非阻塞I / O到响应流桥           |
-| Servlet 3.1容器 | Servlet 3.1非阻塞I / O                                       | spring-web：Servlet 3.1非阻塞I / O到响应流桥           |
+| 服务器名称      | 使用的服务器API                                              | 反应式流支持                                                 |
+| :-------------- | :----------------------------------------------------------- | :----------------------------------------------------------- |
+| 净额            | Netty API                                                    | [reactive-stack净值](https://github.com/reactor/reactor-netty) |
+| 底拖            | Undertow API                                                 | spring-web：向响应流桥过渡                                   |
+| 雄猫            | Servlet 3.1非阻塞I / O；读取和写入ByteBuffers与byte []的Tomcat API | spring-web：Servlet 3.1非阻塞I / O到响应流桥                 |
+| 码头            | Servlet 3.1非阻塞I / O；Jetty API编写ByteBuffers与byte []    | spring-web：Servlet 3.1非阻塞I / O到响应流桥                 |
+| Servlet 3.1容器 | Servlet 3.1非阻塞I / O                                       | spring-web：Servlet 3.1非阻塞I / O到响应流桥                 |
 
 下表描述了服务器依赖性（另请参阅 [受支持的版本](https://github.com/spring-projects/spring-framework/wiki/What's-New-in-the-Spring-Framework)）：
 
-| 服务器名称 | 群组编号                | 工件名称               |
-| :--------- | :---------------------- | :--------------------- |
-| 反应堆净值 | io.projectreactor.netty | 反应堆净额             |
-| 底拖       | io.toow                 | 底核                   |
-| 雄猫       | org.apache.tomcat.embed | Tomcat嵌入式核心       |
-| 码头       | org.eclipse.jetty       | 码头服务器，码头服务器 |
+| 服务器名称         | 群组编号                | 工件名称               |
+| :----------------- | :---------------------- | :--------------------- |
+| reactive-stack净值 | io.projectreactor.netty | reactive-stack净额     |
+| 底拖               | io.toow                 | 底核                   |
+| 雄猫               | org.apache.tomcat.embed | Tomcat嵌入式核心       |
+| 码头               | org.eclipse.jetty       | 码头服务器，码头服务器 |
 
 下面的代码段显示了如何将`HttpHandler`适配器与每个服务器API一起使用：
 
-**反应堆净值**
+**reactive-stack净值**
 
 爪哇
 
@@ -1162,7 +984,7 @@ JDK 1.8的`java.util.Optional`被支撑作为组合的方法的参数与具有�
 
 [Web MVC](https://docs.spring.io/spring-framework/docs/current/reference/html/web.html#mvc-ann-return-types)
 
-下表显示了受支持的控制器方法返回值。注意从库，比如反应堆，RxJava，是反应型[或其他](https://docs.spring.io/spring-framework/docs/current/reference/html/web-reactive.html#webflux-reactive-libraries)一般都支持所有的返回值。
+下表显示了受支持的控制器方法返回值。注意从库，比如reactive-stack，RxJava，是反应型[或其他](https://docs.spring.io/spring-framework/docs/current/reference/html/web-reactive.html#webflux-reactive-libraries)一般都支持所有的返回值。
 
 | 控制器方法返回值                                             | 描述                                                         |
 | :----------------------------------------------------------- | :----------------------------------------------------------- |
@@ -3797,7 +3619,7 @@ Spring WebFlux包括一个用于执行HTTP请求的客户端。`WebClient`有一
 
 `WebClient`需要一个HTTP客户端库来执行请求。内置支持以下内容：
 
-- [反应堆净值](https://github.com/reactor/reactor-netty)
+- [reactive-stack净值](https://github.com/reactor/reactor-netty)
 - [码头反应性HttpClient](https://github.com/jetty-project/jetty-reactive-httpclient)
 - [Apache HttpComponents](https://hc.apache.org/index.html)
 - 其他可以通过插入`ClientHttpConnector`。
@@ -4454,7 +4276,7 @@ Map<String, Object> data = Mono.zip(personMono, hobbiesMono, (person, hobbies) -
 
 [与Servlet堆栈中的相同](https://docs.spring.io/spring-framework/docs/current/reference/html/web.html#websocket)
 
-参考文档的此部分涵盖对反应堆WebSocket消息传递的支持。
+参考文档的此部分涵盖对reactive-stackWebSocket消息传递的支持。
 
 ### 3.1。WebSocket介绍
 
@@ -4810,7 +4632,7 @@ RSocket是一种应用协议，用于使用以下交互模型之一通过TCP，W
 - 大邮件的碎片化和重组。
 - Keepalive（心跳）。
 
-RSocket具有多种语言的[实现](https://github.com/rsocket)。该 [Java库](https://github.com/rsocket/rsocket-java)是建立在[工程反应堆](https://projectreactor.io/)及[反应堆的Netty](https://github.com/reactor/reactor-netty)的运输。这意味着来自应用程序中的Reactive Streams Publisher的信号通过RSocket在网络上透明地传播。
+RSocket具有多种语言的[实现](https://github.com/rsocket)。该 [Java库](https://github.com/rsocket/rsocket-java)是建立在[工程reactive-stack](https://projectreactor.io/)及[reactive-stack的Netty](https://github.com/reactor/reactor-netty)的运输。这意味着来自应用程序中的Reactive Streams Publisher的信号通过RSocket在网络上透明地传播。
 
 #### 5.1.1。协议书
 
