@@ -4,11 +4,11 @@
 
 
 
-文档的此部分涵盖对基于[Reactive Streams](https://www.reactive-streams.org/) API构建的[reactive-stack](https://www.reactive-streams.org/)Web应用程序的支持，该应用程序可在非阻塞服务器（例如Netty，Undertow和Servlet 3.1+容器）上运行。涵盖了[Spring WebFlux](https://docs.spring.io/spring-framework/docs/current/reference/html/webflux.html#webflux)框架，Reactive[`WebClient`](https://docs.spring.io/spring-framework/docs/current/reference/html/web-reactive.html#webflux-client)，[测试](https://docs.spring.io/spring-framework/docs/current/reference/html/web-reactive.html#webflux-test)支持和[Reactive库](https://docs.spring.io/spring-framework/docs/current/reference/html/web-reactive.html#webflux-reactive-libraries)的独立章节。对于Servlet栈Web应用程序，请参阅[Servlet Stack上的Web](https://docs.spring.io/spring-framework/docs/current/reference/html/web.html#spring-web)。
+文档的此部分涵盖对基于[响应流](https://www.reactive-streams.org/) API构建的[reactive-stack](https://www.reactive-streams.org/)Web应用程序的支持，该应用程序可在非阻塞服务器（例如Netty，Undertow和Servlet 3.1+容器）上运行。涵盖了[Spring WebFlux](https://docs.spring.io/spring-framework/docs/current/reference/html/webflux.html#webflux)框架，Reactive[`WebClient`](https://docs.spring.io/spring-framework/docs/current/reference/html/web-reactive.html#webflux-client)，[测试](https://docs.spring.io/spring-framework/docs/current/reference/html/web-reactive.html#webflux-test)支持和[Reactive库](https://docs.spring.io/spring-framework/docs/current/reference/html/web-reactive.html#webflux-reactive-libraries)的独立章节。对于Servlet栈Web应用程序，请参阅[Servlet Stack上的Web](https://docs.spring.io/spring-framework/docs/current/reference/html/web.html#spring-web)。
 
 ## 1. Spring WebFlux
 
-Spring框架中包含的原始Web框架Spring Web MVC是专门为Servlet API和Servlet容器而构建的。响应式堆栈Web框架Spring WebFlux在稍后的5.0版中添加。它是完全无阻塞的，支持 [Reactive Streams](https://www.reactive-streams.org/)背压，并在Netty，Undertow和Servlet 3.1+容器等服务器上运行。
+Spring框架中包含的原始Web框架Spring Web MVC是专门为Servlet API和Servlet容器而构建的。响应式堆栈Web框架Spring WebFlux在稍后的5.0版中添加。它是完全无阻塞的，支持 [响应流](https://www.reactive-streams.org/)背压，并在Netty，Undertow和Servlet 3.1+容器等服务器上运行。
 
 这两个Web框架都反映了其源模块的名称（[spring-webmvc](https://github.com/spring-projects/spring-framework/tree/master/spring-webmvc)和 [spring-webflux](https://github.com/spring-projects/spring-framework/tree/master/spring-webflux)），并在Spring Framework中并存。每个模块都是可选的。应用程序可以使用一个模块，也可以使用另一个模块，在某些情况下，也可以使用两个模块，例如，带有react的Spring MVC控制器`WebClient`。
 
@@ -28,7 +28,7 @@ Spring框架中包含的原始Web框架Spring Web MVC是专门为Servlet API和S
 
 我们Spring团队还有另一个重要机制与“Reactive”相关联，这是不阻碍背压的机制。在同步命令式代码中，阻塞调用是背压的自然形式，它迫使调用者等待。在非阻塞代码中，控制事件的速率非常重要，这样快速的生产者就不会淹没其目的地。
 
-Reactive Streams是一个 [小的规范](https://github.com/reactive-streams/reactive-streams-jvm/blob/master/README.md#specification) （在Java 9中也[采用](https://docs.oracle.com/javase/9/docs/api/java/util/concurrent/Flow.html)了），它定义了带有反压力的异步组件之间的交互。例如，数据存储库（充当 [Publisher](https://www.reactive-streams.org/reactive-streams-1.0.1-javadoc/org/reactivestreams/Publisher.html)）可以生成HTTP服务器（充当 [Subscriber](https://www.reactive-streams.org/reactive-streams-1.0.1-javadoc/org/reactivestreams/Subscriber.html)）然后可以写入响应的数据。Reactive Streams的主要目的是让订阅者控制发布者生成数据的速度或速度。
+响应流是一个 [小的规范](https://github.com/reactive-streams/reactive-streams-jvm/blob/master/README.md#specification) （在Java 9中也[采用](https://docs.oracle.com/javase/9/docs/api/java/util/concurrent/Flow.html)了），它定义了带有反压力的异步组件之间的交互。例如，数据存储库（充当 [Publisher](https://www.reactive-streams.org/reactive-streams-1.0.1-javadoc/org/reactivestreams/Publisher.html)）可以生成HTTP服务器（充当 [Subscriber](https://www.reactive-streams.org/reactive-streams-1.0.1-javadoc/org/reactivestreams/Subscriber.html)）然后可以写入响应的数据。响应流的主要目的是让订阅者控制发布者生成数据的速度或速度。
 
 |      | **常见问题：如果出版商不能放慢脚步怎么办？** 反应流的目的仅仅是建立机制和边界。如果发布者无法放慢速度，则必须决定是缓冲，删除还是失败。 |
 | ---- | ------------------------------------------------------------ |
@@ -36,11 +36,11 @@ Reactive Streams是一个 [小的规范](https://github.com/reactive-streams/rea
 
 #### 1.1.2。响应式API
 
-反应流对于互操作性起着重要作用。库和基础结构组件对此很感兴趣，但由于它太底层了，因此它不适合用作应用程序API。应用程序需要更高级别且功能更丰富的API来构成异步逻辑-与Java 8 `Stream`API类似，但不仅适用于集合。这就是Reactive库发挥的作用。
+响应流对于互操作性起着重要作用。库和基础结构组件对此很感兴趣，但由于它太底层了，因此它不适合用作应用程序API。应用程序需要更高级别且功能更丰富的API来构成异步逻辑-与Java 8 `Stream`API类似，但不仅适用于集合。这就是Reactive库发挥的作用。
 
-[Reactor](https://github.com/reactor/reactor)是Spring WebFlux的首选反应库。它提供了 [`Mono`](https://projectreactor.io/docs/core/release/api/reactor/core/publisher/Mono.html)和 [`Flux`](https://projectreactor.io/docs/core/release/api/reactor/core/publisher/Flux.html)API类型，以通过与ReactiveX[运算符词汇](http://reactivex.io/documentation/operators.html)对齐的丰富运算符集来处理0..1（`Mono`）和0..N（`Flux`）数据序列。Reactor是Reactive Streams库，因此，它的所有运算符都支持无阻塞背压。Reactor非常注重服务器端Java。它是与Spring紧密合作开发的。
+[Reactor](https://github.com/reactor/reactor)是Spring WebFlux的首选响应库。它提供了 [`Mono`](https://projectreactor.io/docs/core/release/api/reactor/core/publisher/Mono.html)和 [`Flux`](https://projectreactor.io/docs/core/release/api/reactor/core/publisher/Flux.html)API类型，以通过与ReactiveX[运算符词汇](http://reactivex.io/documentation/operators.html)对齐的丰富运算符集来处理0..1（`Mono`）和0..N（`Flux`）数据序列。Reactor是响应流库，因此，它的所有运算符都支持无阻塞背压。Reactor非常注重服务器端Java。它是与Spring紧密合作开发的。
 
-WebFlux要求Reactor作为核心依赖项，但是它可以通过Reactive Streams与其他React库进行互操作。通常，WebFlux API接受平原`Publisher` 作为输入，在内部将其适应于Reactor类型，使用它，然后返回a `Flux`或a`Mono`作为输出。因此，您可以将任何值`Publisher`作为输入传递，并且可以对输出应用操作，但是您需要调整输出以与另一个Reactive库一起使用。只要可行（例如，带注释的控制器），WebFlux就会透明地适应RxJava或其他Reactive库的使用。有关更多详细信息，请参见[Reactive库](https://docs.spring.io/spring-framework/docs/current/reference/html/web-reactive.html#webflux-reactive-libraries)。
+WebFlux要求Reactor作为核心依赖项，但是它可以通过响应流与其他React库进行互操作。通常，WebFlux API接受平原`Publisher` 作为输入，在内部将其适应于Reactor类型，使用它，然后返回a `Flux`或a`Mono`作为输出。因此，您可以将任何值`Publisher`作为输入传递，并且可以对输出应用操作，但是您需要调整输出以与另一个Reactive库一起使用。只要可行（例如，带注释的控制器），WebFlux就会透明地适应RxJava或其他Reactive库的使用。有关更多详细信息，请参见[Reactive库](https://docs.spring.io/spring-framework/docs/current/reference/html/web-reactive.html#webflux-reactive-libraries)。
 
 |      | 除了响应式API外，WebFlux还可以与Kotlin中的[Coroutines](https://docs.spring.io/spring-framework/docs/current/reference/html/languages.html#coroutines) API一起使用， 从而提供了更强制的编程风格。以下Kotlin代码示例将随Coroutines API一起提供。 |
 | ---- | ------------------------------------------------------------ |
@@ -48,12 +48,12 @@ WebFlux要求Reactor作为核心依赖项，但是它可以通过Reactive Stream
 
 #### 1.1.3。编程模型
 
-该`spring-web`模块包含Spring WebFlux基础的Reactive基础，包括HTTP抽象，用于支持的服务器的Reactive Streams[适配器](https://docs.spring.io/spring-framework/docs/current/reference/html/web-reactive.html#webflux-httphandler)，[编解码器](https://docs.spring.io/spring-framework/docs/current/reference/html/web-reactive.html#webflux-codecs)以及与Servlet API相似但具有非阻塞合同的核心[`WebHandler`API](https://docs.spring.io/spring-framework/docs/current/reference/html/web-reactive.html#webflux-web-handler-api)。
+`spring-web`模块包含Spring WebFlux基础的Reactive基础，包括HTTP抽象，用于支持的服务器的响应流[适配器](https://docs.spring.io/spring-framework/docs/current/reference/html/web-reactive.html#webflux-httphandler)，[编解码器](https://docs.spring.io/spring-framework/docs/current/reference/html/web-reactive.html#webflux-codecs)以及与Servlet API相似但具有非阻塞合同的核心[`WebHandler`API](https://docs.spring.io/spring-framework/docs/current/reference/html/web-reactive.html#webflux-web-handler-api)。
 
 在此基础上，Spring WebFlux提供了两种编程模型的选择：
 
-- [带注释的控制器](https://docs.spring.io/spring-framework/docs/current/reference/html/web-reactive.html#webflux-controller)：与Spring MVC一致，并基于`spring-web`模块中的相同注释。Spring MVC和WebFlux控制器都支持Reactive（Reactor和RxJava）返回类型，因此，区分它们并不容易。一个显着的区别是WebFlux还支持反应`@RequestBody`参数。
-- [功能端点](https://docs.spring.io/spring-framework/docs/current/reference/html/web-reactive.html#webflux-fn)：基于Lambda的轻量级功能编程模型。您可以将其视为一个小型库或一组实用程序，应用程序可以使用它们来路由和处理请求。带注释的控制器的最大区别在于，应用程序负责从头到尾的请求处理，而不是通过注释声明意图并被回调。
+- [带注释的控制器](https://docs.spring.io/spring-framework/docs/current/reference/html/web-reactive.html#webflux-controller)：与Spring MVC一致，并基于`spring-web`模块中的相同注释。Spring MVC和WebFlux控制器都支持Reactive（Reactor和RxJava）返回类型，因此，区分它们并不容易。一个显着的区别是WebFlux还支持响应`@RequestBody`参数。
+- [函数式端点](https://docs.spring.io/spring-framework/docs/current/reference/html/web-reactive.html#webflux-fn)：基于Lambda的轻量级功能编程模型。您可以将其视为一个小型库或一组实用程序，应用程序可以使用它们来路由和处理请求。带注释的控制器的最大区别在于，应用程序负责从头到尾的请求处理，而不是通过注释声明意图并被回调。
 
 #### 1.1.4。适用性
 
@@ -70,7 +70,7 @@ Spring MVC还是WebFlux？
 - 如果您对与Java 8 lambda或Kotlin一起使用的轻量级功能性Web框架感兴趣，则可以使用Spring WebFlux功能性Web端点。对于要求较低复杂性的较小应用程序或微服务（可以受益于更高的透明度和控制）而言，这也是一个不错的选择。
 - 在微服务架构中，您可以混合使用带有Spring MVC或Spring WebFlux控制器或带有Spring WebFlux功能端点的应用程序。在两个框架中都支持相同的基于注释的编程模型，这使得重用知识变得更加容易，同时还为正确的工作选择了正确的工具。
 - 评估应用程序的一种简单方法是检查其依赖关系。如果您要使用阻塞性持久性API（JPA，JDBC）或网络API，则Spring MVC至少是常见体系结构的最佳选择。使用Reactor和RxJava在单独的线程上执行阻塞调用在技术上是可行的，但您不会充分利用非阻塞Web堆栈。
-- 如果您的Spring MVC应用程序具有对远程服务的调用，请尝试使用active `WebClient`。您可以直接从Spring MVC控制器方法返回反应类型（Reactor，RxJava[或其他](https://docs.spring.io/spring-framework/docs/current/reference/html/web-reactive.html#webflux-reactive-libraries)）。每个呼叫的等待时间或呼叫之间的相互依赖性越大，好处就越明显。Spring MVC控制器也可以调用其他Reactive组件。
+- 如果您的Spring MVC应用程序具有对远程服务的调用，请尝试使用active `WebClient`。您可以直接从Spring MVC控制器方法返回响应类型（Reactor，RxJava[或其他](https://docs.spring.io/spring-framework/docs/current/reference/html/web-reactive.html#webflux-reactive-libraries)）。每个呼叫的等待时间或呼叫之间的相互依赖性越大，好处就越明显。Spring MVC控制器也可以调用其他Reactive组件。
 - 如果您有庞大的团队，请牢记向无阻塞，功能性和声明性编程的过渡过程中的学习曲线很陡。在没有完全切换的情况下启动的一种实用方法是使用电抗器`WebClient`。除此之外，从小处着手并衡量收益。我们希望对于广泛的应用而言，这种转变是不必要的。如果不确定要寻找什么好处，请先了解无阻塞I / O的工作原理（例如，单线程Node.js上的并发性）及其影响。
 
 #### 1.1.5。伺服器
@@ -87,7 +87,7 @@ Tomcat和Jetty可以与Spring MVC和WebFlux一起使用。但是请记住，它�
 
 #### 1.1.6。性能
 
-表演具有许多特征和意义。反应和非阻塞通常不会使应用程序运行得更快。在某些情况下，它们可以（例如，如果使用 `WebClient`并行运行远程调用）。总体而言，以非阻塞方式进行处理需要更多的工作，这可能会稍微增加所需的处理时间。
+表演具有许多特征和意义。响应和非阻塞通常不会使应用程序运行得更快。在某些情况下，它们可以（例如，如果使用 `WebClient`并行运行远程调用）。总体而言，以非阻塞方式进行处理需要更多的工作，这可能会稍微增加所需的处理时间。
 
 Reactive和非阻塞性的主要预期好处是能够以较少的固定数量的线程和较少的内存进行扩展。这使应用程序在负载下更具弹性，因为它们以更可预测的方式扩展。但是，为了观察这些好处，您需要有一些延迟（包括缓慢的和不可预测的网络I / O的混合）。这就是reactive-stack开始显示其优势的地方，差异可能很大。
 
@@ -116,7 +116,7 @@ Spring MVC和Spring WebFlux都支持带注释的控制器，但是并发模型�
 您期望在运行Spring WebFlux的服务器上看到哪些线程？
 
 - 在“原始” Spring WebFlux服务器上（例如，没有数据访问权限或其他可选依赖项），您可以期望该服务器有一个线程，而其他几个线程则可以进行请求处理（通常与CPU核心数量一样多）。但是，Servlet容器可能以更多线程开始（例如，Tomcat上为10），以支持Servlet（阻塞）I / O和Servlet 3.1（非阻塞）I / O使用。
-- 反应`WebClient`式以事件循环方式运行。因此，您可以看到与之相关的固定数量的处理线程（例如，`reactor-http-nio-`使用Reactor Netty连接器）。但是，如果客户端和服务器都使用Reactor Netty，则默认情况下两者共享事件循环资源。
+- 响应`WebClient`式以事件循环方式运行。因此，您可以看到与之相关的固定数量的处理线程（例如，`reactor-http-nio-`使用Reactor Netty连接器）。但是，如果客户端和服务器都使用Reactor Netty，则默认情况下两者共享事件循环资源。
 - Reactor和RxJava提供了称为调度程序的线程池抽象，以与`publishOn`用于将处理切换到另一个线程池的运算符一起使用 。调度程序具有建议特定并发策略的名称，例如，“并行”（用于有限数量的线程的CPU绑定工作）或“弹性”（用于具有大量线程的I / O绑定）。如果看到这样的线程，则意味着某些代码正在使用特定的线程池`Scheduler`策略。
 - 数据访问库和其他第三方依赖性也可以创建和使用自己的线程。
 
@@ -129,7 +129,7 @@ Spring框架不提供启动和停止[服务器的](https://docs.spring.io/spring
 该`spring-web`模块包含以下对响应式Web应用程序的基础支持：
 
 - 对于服务器请求处理，有两个级别的支持。
-  - [HttpHandler](https://docs.spring.io/spring-framework/docs/current/reference/html/web-reactive.html#webflux-httphandler)：HTTP请求处理的基本协议，具有无阻塞I / O和Reactive Streams背压，以及Reactor Netty，Undertow，Tomcat，Jetty和任何Servlet 3.1+容器的适配器。
+  - [HttpHandler](https://docs.spring.io/spring-framework/docs/current/reference/html/web-reactive.html#webflux-httphandler)：HTTP请求处理的基本协议，具有无阻塞I / O和响应流背压，以及Reactor Netty，Undertow，Tomcat，Jetty和任何Servlet 3.1+容器的适配器。
   - [`WebHandler`API](https://docs.spring.io/spring-framework/docs/current/reference/html/web-reactive.html#webflux-web-handler-api)：稍高级别的通用Web API，用于处理请求，在此之上构建了具体的编程模型，例如带注释的控制器和功能端点。
 - 对于客户端，有一个基本`ClientHttpConnector`协议来执行具有无阻塞I / O和响应流反压力的HTTP请求，以及用于[Reactor Netty](https://github.com/reactor/reactor-netty)，响应式 [Jetty HttpClient](https://github.com/jetty-project/jetty-reactive-httpclient) 和[Apache HttpComponents的](https://hc.apache.org/)适配器 。应用程序中使用的更高级别的[WebClient](https://docs.spring.io/spring-framework/docs/current/reference/html/web-reactive.html#webflux-client)基于此基本协定。
 - 对于客户端和服务器，[编解码器](https://docs.spring.io/spring-framework/docs/current/reference/html/web-reactive.html#webflux-codecs)用于HTTP请求和响应内容的序列化和反序列化。
@@ -545,7 +545,7 @@ The following table lists the special beans detected by the `DispatcherHandler`.
 
 - `HandlerMapping`要求每个人找到匹配的处理程序，并使用第一个匹配项。
 - 如果找到处理程序，则会通过适当的处理程序运行该处理程序，该处理程序会将`HandlerAdapter`执行返回的值公开为`HandlerResult`。
-- 将`HandlerResult`被提供给一个适当的`HandlerResultHandler`通过写直接反应或通过使用视图来呈现到完整的处理。
+- 将`HandlerResult`被提供给一个适当的`HandlerResultHandler`通过写直接响应或通过使用视图来呈现到完整的处理。
 
 #### 1.3.4。结果处理
 
@@ -567,7 +567,7 @@ The following table lists the special beans detected by the `DispatcherHandler`.
 - 处理程序（例如`@Controller`）调用失败。
 - 通过`HandlerResultHandler`失败对处理程序返回值的处理。
 
-只要在从处理程序返回的反应类型产生任何数据项之前发生错误信号，错误函数就可以更改响应（例如，更改为错误状态）。
+只要在从处理程序返回的响应类型产生任何数据项之前发生错误信号，错误函数就可以更改响应（例如，更改为错误状态）。
 
 This is how `@ExceptionHandler` methods in `@Controller` classes are supported. By contrast, support for the same in Spring MVC is built on a `HandlerExceptionResolver`. This generally should not matter. However, keep in mind that, in WebFlux, you cannot use a `@ControllerAdvice` to handle exceptions that occur before a handler is chosen.
 
@@ -984,7 +984,7 @@ JDK 1.8的`java.util.Optional`被支撑作为组合的方法的参数与具有�
 
 [Web MVC](https://docs.spring.io/spring-framework/docs/current/reference/html/web.html#mvc-ann-return-types)
 
-下表显示了受支持的控制器方法返回值。注意从库，比如reactive-stack，RxJava，是反应型[或其他](https://docs.spring.io/spring-framework/docs/current/reference/html/web-reactive.html#webflux-reactive-libraries)一般都支持所有的返回值。
+下表显示了受支持的控制器方法返回值。注意从库，比如reactive-stack，RxJava，是响应型[或其他](https://docs.spring.io/spring-framework/docs/current/reference/html/web-reactive.html#webflux-reactive-libraries)一般都支持所有的返回值。
 
 | 控制器方法返回值                                             | 描述                                                         |
 | :----------------------------------------------------------- | :----------------------------------------------------------- |
@@ -1546,7 +1546,7 @@ public void handle(@RequestBody Account account) {
 }
 ```
 
-与Spring MVC不同，在WebFlux中，`@RequestBody`method参数支持反应类型以及完全无阻塞的读取和（客户端到服务器）流传输。
+与Spring MVC不同，在WebFlux中，`@RequestBody`method参数支持响应类型以及完全无阻塞的读取和（客户端到服务器）流传输。
 
 爪哇
 
@@ -1636,7 +1636,7 @@ public ResponseEntity<String> handle() {
 }
 ```
 
-WebFlux支持使用单值[反应类型](https://docs.spring.io/spring-framework/docs/current/reference/html/web-reactive.html#webflux-reactive-libraries)来`ResponseEntity`异步生成和/或为主体生成单值和多值反应类型。
+WebFlux支持使用单值[响应类型](https://docs.spring.io/spring-framework/docs/current/reference/html/web-reactive.html#webflux-reactive-libraries)来`ResponseEntity`异步生成和/或为主体生成单值和多值响应类型。
 
 ##### 杰克逊JSON
 
@@ -1979,7 +1979,7 @@ public class PersonHandler {
 
 [Web MVC](https://docs.spring.io/spring-framework/docs/current/reference/html/web.html#webmvc-fn-handler-functions)
 
-`ServerRequest` and `ServerResponse` are immutable interfaces that offer JDK 8-friendly access to the HTTP request and response. Both request and response provide [Reactive Streams](https://www.reactive-streams.org/) back pressure against the body streams. The request body is represented with a Reactor `Flux` or `Mono`. The response body is represented with any Reactive Streams `Publisher`, including `Flux` and `Mono`. For more on that, see [Reactive Libraries](https://docs.spring.io/spring-framework/docs/current/reference/html/web-reactive.html#webflux-reactive-libraries).
+`ServerRequest` and `ServerResponse` are immutable interfaces that offer JDK 8-friendly access to the HTTP request and response. Both request and response provide [响应流](https://www.reactive-streams.org/) back pressure against the body streams. The request body is represented with a Reactor `Flux` or `Mono`. The response body is represented with any 响应流 `Publisher`, including `Flux` and `Mono`. For more on that, see [Reactive Libraries](https://docs.spring.io/spring-framework/docs/current/reference/html/web-reactive.html#webflux-reactive-libraries).
 
 ##### ServerRequest
 
@@ -4626,13 +4626,13 @@ RSocket是一种应用协议，用于使用以下交互模型之一通过TCP，W
 
 这些是RSocket协议的关键功能和优势：
 
-- [Reactive Streams](https://www.reactive-streams.org/)跨网络边界的语义-用于诸如`Request-Stream`和的流请求`Channel`，背压信号在请求者和响应者之间传播，从而允许请求者放慢源处的响应者的速度，从而减少了对网络层拥塞控制的依赖，并减少了在网络级别或任何级别。
+- [响应流](https://www.reactive-streams.org/)跨网络边界的语义-用于诸如`Request-Stream`和的流请求`Channel`，背压信号在请求者和响应者之间传播，从而允许请求者放慢源处的响应者的速度，从而减少了对网络层拥塞控制的依赖，并减少了在网络级别或任何级别。
 - 请求限制-在`LEASE`可以从两端发送的帧之后，此功能称为“租赁”，以限制给定时间内另一端允许的请求总数。租约会定期更新。
 - 会话恢复-这是为断开连接而设计的，需要维护一些状态。状态管理对于应用程序是透明的，并且可以与背压结合使用，从而可以在可能的情况下停止生产者并减少所需的状态量。
 - 大邮件的碎片化和重组。
 - Keepalive（心跳）。
 
-RSocket具有多种语言的[实现](https://github.com/rsocket)。该 [Java库](https://github.com/rsocket/rsocket-java)是建立在[工程reactive-stack](https://projectreactor.io/)及[reactive-stack的Netty](https://github.com/reactor/reactor-netty)的运输。这意味着来自应用程序中的Reactive Streams Publisher的信号通过RSocket在网络上透明地传播。
+RSocket具有多种语言的[实现](https://github.com/rsocket)。该 [Java库](https://github.com/rsocket/rsocket-java)是建立在[工程reactive-stack](https://projectreactor.io/)及[reactive-stack的Netty](https://github.com/reactor/reactor-netty)的运输。这意味着来自应用程序中的响应流 Publisher的信号通过RSocket在网络上透明地传播。
 
 #### 5.1.1。协议书
 
@@ -4667,7 +4667,7 @@ RSocket消息包含数据和元数据。元数据可用于发送路由，安全�
 
 #### 5.1.2。Java实现
 
-RSocket的[Java实现](https://github.com/rsocket/rsocket-java)基于[Project Reactor](https://projectreactor.io/)构建 。TCP和WebSocket的传输基于[Reactor Netty](https://github.com/reactor/reactor-netty)构建。作为反应流库，Reactor简化了实现协议的工作。对于应用来说是天作之合来使用`Flux`和`Mono`用声明运营商和透明背压支持。
+RSocket的[Java实现](https://github.com/rsocket/rsocket-java)基于[Project Reactor](https://projectreactor.io/)构建 。TCP和WebSocket的传输基于[Reactor Netty](https://github.com/reactor/reactor-netty)构建。作为响应流库，Reactor简化了实现协议的工作。对于应用来说是天作之合来使用`Flux`和`Mono`用声明运营商和透明背压支持。
 
 RSocket Java中的API故意是最小且基本的。它专注于协议功能，而将应用程序编程模型（例如RPC代码生成与其他）作为一个更高级别的独立关注点。
 
@@ -5086,9 +5086,9 @@ RSocketStrategies strategies = RSocketStrategies.builder()
 
 ## 6.Reactive图书馆
 
-`spring-webflux`在`reactor-core`内部依赖并使用它来构成异步逻辑并提供Reactive Streams支持。通常，WebFlux API返回`Flux`或 `Mono`（因为它们在内部使用）并且宽容地接受任何Reactive Streams `Publisher`实现作为输入。使用`Flux`vs`Mono`是重要的，因为它有助于表达基数-例如，期望单个或多个异步值，并且这对于进行决策（例如，在编码或解码HTTP消息时）至关重要。
+`spring-webflux`在`reactor-core`内部依赖并使用它来构成异步逻辑并提供响应流支持。通常，WebFlux API返回`Flux`或 `Mono`（因为它们在内部使用）并且宽容地接受任何响应流 `Publisher`实现作为输入。使用`Flux`vs`Mono`是重要的，因为它有助于表达基数-例如，期望单个或多个异步值，并且这对于进行决策（例如，在编码或解码HTTP消息时）至关重要。
 
-对于带注释的控制器，WebFlux透明地适应应用程序选择的Reactive库。这是在的帮助下完成的 [`ReactiveAdapterRegistry`](https://docs.spring.io/spring-framework/docs/5.3.1/javadoc-api/org/springframework/core/ReactiveAdapterRegistry.html)，该工具为Reactive库和其他异步类型提供了可插入的支持。该注册表具有对RxJava 2/3，RxJava 1（通过RxJava Reactive Streams桥）和的内置支持 `CompletableFuture`，但是您也可以注册其他内容。
+对于带注释的控制器，WebFlux透明地适应应用程序选择的Reactive库。这是在的帮助下完成的 [`ReactiveAdapterRegistry`](https://docs.spring.io/spring-framework/docs/5.3.1/javadoc-api/org/springframework/core/ReactiveAdapterRegistry.html)，该工具为Reactive库和其他异步类型提供了可插入的支持。该注册表具有对RxJava 2/3，RxJava 1（通过RxJava 响应流桥）和的内置支持 `CompletableFuture`，但是您也可以注册其他内容。
 
 |      | 从Spring Framework 5.3开始，不支持RxJava 1。 |
 | ---- | -------------------------------------------- |
