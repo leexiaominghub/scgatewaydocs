@@ -136,7 +136,7 @@ Spring框架不提供启动和停止[服务器的](https://docs.spring.io/spring
 
 #### 1.2.1。 `HttpHandler`
 
-[HttpHandler](https://docs.spring.io/spring-framework/docs/5.3.1/javadoc-api/org/springframework/http/server/reactive/HttpHandler.html) 是具有一个用于处理请求和响应的单一方法的简单协定。它是有意的最小化，其主要且唯一的目的是成为对不同HTTP服务器API的最小化抽象。
+[HttpHandler](https://docs.spring.io/spring-framework/docs/5.3.1/javadoc-api/org/springframework/http/server/reactive/HttpHandler.html) 是具有一个用于处理请求和响应的单一方法的简单协定。有意最小化这个协定，其主要且唯一的目的是成为对不同HTTP服务器API的最小化抽象。
 
 下表描述了受支持的服务器API：
 
@@ -243,11 +243,11 @@ server.start();
 - 多部分数据的抽象。
 - 和更多..
 
-##### 特殊豆类
+##### 特殊bean类
 
 下表列出了`WebHttpHandlerBuilder`可以在Spring ApplicationContext中自动检测的组件，或可以直接向其注册的组件：
 
-| 豆名                         | 豆类                         | 计数 | 描述                                                         |
+| bean名                       | bean类                       | 计数 | 描述                                                         |
 | :--------------------------- | :--------------------------- | :--- | :----------------------------------------------------------- |
 | <任何>                       | `WebExceptionHandler`        | 0..N | 提供`WebFilter`实例链和目标 链中的异常处理`WebHandler`。有关更多详细信息，请参见[Exceptions](https://docs.spring.io/spring-framework/docs/current/reference/html/web-reactive.html#webflux-exception-handler)。 |
 | <任何>                       | `WebFilter`                  | 0..N | 在其余过滤链和目标之前和之后应用拦截式逻辑`WebHandler`。有关更多详细信息，请参见过[滤器](https://docs.spring.io/spring-framework/docs/current/reference/html/web-reactive.html#webflux-filters)。 |
@@ -285,7 +285,7 @@ Mono<MultiValueMap<String, String>> getFormData();
 Mono<MultiValueMap<String, Part>> getMultipartData();
 ```
 
-的`DefaultServerWebExchange`使用配置的 `HttpMessageReader<MultiValueMap<String, Part>>`解析`multipart/form-data`内容成`MultiValueMap`。默认情况下，这是`DefaultPartHttpMessageReader`，没有任何第三方依赖项。或者，`SynchronossPartHttpMessageReader`可以使用基于 [Synchronoss NIO Multipart](https://github.com/synchronoss/nio-multipart)库的。两者都是通过`ServerCodecConfigurer`bean配置的（请参阅[Web Handler API](https://docs.spring.io/spring-framework/docs/current/reference/html/web-reactive.html#webflux-web-handler-api)）。
+`DefaultServerWebExchange`使用配置的 `HttpMessageReader<MultiValueMap<String, Part>>`解析`multipart/form-data`内容成`MultiValueMap`。默认情况下，这是`DefaultPartHttpMessageReader`，没有任何第三方依赖项。或者，`SynchronossPartHttpMessageReader`可以使用基于 [Synchronoss NIO Multipart](https://github.com/synchronoss/nio-multipart)库的。两者都是通过`ServerCodecConfigurer`bean配置的（请参阅[Web Handler API](https://docs.spring.io/spring-framework/docs/current/reference/html/web-reactive.html#webflux-web-handler-api)）。
 
 要以流方式解析多部分数据，可以使用`Flux<Part>`从中返回的内容 `HttpMessageReader<Part>`。例如，在带注释的控制器中，使用 `@RequestPart`隐含`Map`名称之类的名称可以访问各个部分，因此需要完全解析多部分数据。相反，您可以使用`@RequestBody`解码内容`Flux<Part>`而不收集到`MultiValueMap`。
 
@@ -495,9 +495,9 @@ WebClient webClient = WebClient.builder()
 
 WebFlux应用程序中的Spring配置通常包含：
 
-- `DispatcherHandler` 用豆子的名字 `webHandler`
-- `WebFilter`和`WebExceptionHandler`豆子
-- [`DispatcherHandler` 特殊豆](https://docs.spring.io/spring-framework/docs/current/reference/html/web-reactive.html#webflux-special-bean-types)
+- `DispatcherHandler` 用bean子的名字 `webHandler`
+- `WebFilter`和`WebExceptionHandler`bean子
+- [`DispatcherHandler` 特殊bean](https://docs.spring.io/spring-framework/docs/current/reference/html/web-reactive.html#webflux-special-bean-types)
 - 其他
 
 The configuration is given to `WebHttpHandlerBuilder` to build the processing chain, as the following example shows:
