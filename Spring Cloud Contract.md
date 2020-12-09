@@ -22,7 +22,7 @@ Spring Cloud Contract Verifier将TDD移至软件架构级别。
 
 ## 特性
 
-当尝试测试与其他服务通信的应用程序时，我们可以做两件事之一：
+当尝试对需与其他服务通信的应用程序进行测试时，我们可以做两件事之一：
 
 - 部署所有微服务并执行端到端测试
 - 在单元/集成测试中模拟其他微服务
@@ -54,7 +54,7 @@ Spring Cloud Contract Verifier将TDD移至软件架构级别。
 - 服务的实现者会创建桩，因此它们可能与现实无关
 - 您可以通过测试并通过失败的生产
 
-为了解决上述问题，创建了带有Stub Runner的Spring Cloud Contract Verifier。他们的主要思想是在不建立整个微服务世界的情况下，为您提供非常快速的反馈。
+创建带有Stub Runner的Spring Cloud Contract Verifier以解决上述问题。他们的主要思想是在不建立整个微服务世界的情况下，为您提供非常快速的反馈。
 
 Spring Cloud Contract Verifier的功能：
 
@@ -67,7 +67,7 @@ Spring Cloud Contract Verifier的功能：
 
 ## 在生产者方面
 
-要开始使用Spring Cloud Contract，您可以将具有REST的文件或以Groovy DSL或YAML表示的消息传递合约添加到由contractsDslDir属性设置的合约目录中。默认情况下，它是$ rootDir / src / test / resources / contracts。
+要开始使用Spring Cloud Contract，您可以将具有REST的文件或以Groovy DSL或YAML表示的消息传递合约添加到由contractsDslDir属性设置的合约目录中。默认情况下，它是$rootDir/src/test/resources/contracts。
 
 然后，您可以将Spring Cloud Contract Verifier依赖项和插件添加到您的构建文件中，如以下示例所示：
 
@@ -76,7 +76,7 @@ Spring Cloud Contract Verifier的功能：
     <groupId>org.springframework.cloud</groupId>
     <artifactId>spring-cloud-starter-contract-verifier</artifactId>
     <scope>test</scope>
-</dependency>复制
+</dependency>
 ```
 
 以下清单显示了如何添加插件，该插件应放在文件的build / plugins部分中：
@@ -87,14 +87,14 @@ Spring Cloud Contract Verifier的功能：
     <artifactId>spring-cloud-contract-maven-plugin</artifactId>
     <version>${spring-cloud-contract.version}</version>
     <extensions>true</extensions>
-</plugin>复制
+</plugin>
 ```
 
-运行会`./mvnw clean install`自动生成测试，以验证应用程序是否符合添加的合约。默认情况下，将在下生成测试`org.springframework.cloud.contract.verifier.tests`。
+运行`./mvnw clean install`自动生成测试，以验证应用程序是否符合添加的合约。默认情况下，将在下面生成测试`org.springframework.cloud.contract.verifier.tests`。
 
 由于尚不存在合约描述的功能的实现，因此测试失败。
 
-要使它们通过，您必须添加处理HTTP请求或消息的正确实现。另外，必须将用于自动生成的测试的基本测试类添加到项目。该类由所有自动生成的测试扩展，并且应包含运行它们所需的所有设置信息（例如，`RestAssuredMockMvc`控制器设置或消息传递测试设置）。
+要使它们通过，您必须添加处理HTTP请求或消息的正确实现。另外，必须将用于自动生成的测试的base测试类添加到项目。该基类由所有自动生成的测试扩展，并且应包含运行它们所需的所有设置信息（例如，`RestAssuredMockMvc`控制器设置或消息传递测试设置）。
 
 以下来自pom.xml的示例显示了如何指定基本测试类：
 
@@ -106,8 +106,7 @@ Spring Cloud Contract Verifier的功能：
             <artifactId>spring-cloud-contract-maven-plugin</artifactId>
             <version>${spring-cloud-contract.version}</version>
             <extensions>true</extensions>
-            <configuration>
-                <baseClassForTests>com.example.contractTest.BaseTestClass</baseClassForTests>
+            <configuration>                      	<baseClassForTests>com.example.contractTest.BaseTestClass</baseClassForTests>
             </configuration>
         </plugin>
         <plugin>
